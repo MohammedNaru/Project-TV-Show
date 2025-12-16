@@ -3,18 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Episodes | Ali Naru</title>
+    <title>TV Show Project | ALI NARU</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <h1>TV Show Episodes</h1>
+    <label for="search-input">Search episodes:</label>
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search by episode name or summary..."
+    />
 
-    <p class="attribution">
-      Data originally from
-      <a href="https://www.tvmaze.com/api" target="_blank">TVMaze.com</a>
-    </p>
+    <label for="episode-select">Jump to episode:</label>
+    <select id="episode-select">
+      <option value="">All episodes</option>
+    </select>
+
+    <p id="episode-count"></p>
 
     <div id="root" class="grid-container"></div>
 

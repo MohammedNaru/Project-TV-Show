@@ -1,17 +1,24 @@
+let allEpisodes = [];
+
 function setup() {
-  const allEpisodes = getAllEpisodes();
+  allEpisodes = getAllEpisodes();
   renderEpisodes(allEpisodes);
+  populateEpisodeSelect(allEpisodes);
+  setupSearch();
+  setupEpisodeSelect();
 }
 
 function renderEpisodes(episodeList) {
-  const episodesContainer = document.getElementById("root");
-  episodesContainer.classList.add("grid-container");
+  const rootElem = document.getElementById("root");
+  rootElem.innerHTML = "";
 
-  episodeList.forEach((episode) => {
+  episodeList.forEach(episode => {
     const episodeDiv = document.createElement("div");
     episodeDiv.classList.add("episode-box");
 
-    const episodeCode = formatEpisodeCode(episode.season, episode.number);
+    const episodeCode = `S${episode.season
+      .toString()
+      .padStart(2, "0")}E${episode.number.toString().padStart(2, "0")}`;
 
     episodeDiv.innerHTML = `
       <h2 class="episode-name">${episode.name} (${episodeCode})</h2>
@@ -21,19 +28,66 @@ function renderEpisodes(episodeList) {
       <p>Source: <a class="episode-link" href="${episode.url}" target="_blank">TVMaze.com</a></p>
     `;
 
-    episodesContainer.appendChild(episodeDiv);
+    rootElem.appendChild(episodeDiv);
   });
 
-  episodesContainer.insertAdjacentHTML(
-    "beforebegin",
-    `<p>Got ${episodeList.length} episode(s)</p>`
-  );
+  updateEpisodeCount(episodeList.length);
 }
 
-function formatEpisodeCode(season, number) {
-  return `S${season.toString().padStart(2, "0")}E${number
-    .toString()
-    .padStart(2, "0")}`;
+function setupSearch() {
+  const searchInput = document.getElementById("search-input");
+
+  searchInput.addEventListener("input", () => {
+    const searchTerm = searchInput.value.toLowerCase();
+
+    const filteredEpisodes = allEpisodes.filter(episode => {
+      return (
+        episode.name.toLowerCase().includes(searchTerm) ||
+        episode.summary.toLowerCase().includes(searchTerm)
+      );
+    });
+
+    renderEpisodes(filteredEpisodes);
+  });
+}
+
+function populateEpisodeSelect(episodes) {
+  const select = document.getElementById("episode-select");
+
+  episodes.forEach(episode => {
+    const option = document.createElement("option");
+
+    const season = episode.season.toString().padStart(2, "0");
+    const number = episode.number.toString().padStart(2, "0");
+    const code = `S${season}E${number}`;
+
+    option.value = episode.id;
+    option.textContent = `${code} - ${episode.name}`;
+
+    select.appendChild(option);
+  });
+}
+
+function setupEpisodeSelect() {
+  const select = document.getElementById("episode-select");
+
+  select.addEventListener("change", () => {
+    if (select.value === "") {
+      renderEpisodes(allEpisodes);
+      return;
+    }
+
+    const selectedEpisode = allEpisodes.find(
+      episode => episode.id.toString() === select.value
+    );
+
+    renderEpisodes([selectedEpisode]);
+  });
+}
+
+function updateEpisodeCount(count) {
+  const countElement = document.getElementById("episode-count");
+  countElement.textContent = `Showing ${count} episode(s)`;
 }
 
 window.onload = setup;

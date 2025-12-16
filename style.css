@@ -1,53 +1,47 @@
 #root {
   color: black;
 }
+
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns */
-  gap: 20px; /* Gap between grid items */
-  padding: 20px; /* Padding around grid */
-}
-
-.episode-box {
-  border: 1px solid #ddd; /* Border around each episode box */
-  padding: 10px; /* Padding inside each episode box */
-}
-
-.episode-name {
+/* NEW: controls layout for search + select */
+label {
+  display: block;
+  margin-top: 10px;
   font-weight: bold;
 }
 
-.episode-image {
-  max-width: 100%;
-  height: auto;
+input[type="text"],
+select {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
 }
 
-.episode-summary {
-  margin-top: 10px;
+/* NEW: episode count text */
+#episode-count {
+  margin: 10px 0 20px 0;
+  font-weight: bold;
 }
 
-.episode-link {
-  color: blue;
-  text-decoration: underline;
-}
-body {
-  font-family: Arial, sans-serif;
-}
-
+/* Existing grid layout */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns */
-  gap: 20px; /* Gap between grid items */
-  padding: 20px; /* Padding around grid */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px 0;
 }
 
 .episode-box {
-  border: 1px solid #ddd; /* Border around each episode box */
-  padding: 10px; /* Padding inside each episode box */
+  border: 1px solid #ddd;
+  padding: 10px;
 }
 
 .episode-name {
