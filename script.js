@@ -87,13 +87,54 @@ function renderEpisodes(episodes) {
     const season = ep.season.toString().padStart(2, "0");
     const number = ep.number.toString().padStart(2, "0");
 
+    // Limit summary length
+    const summaryText = ep.summary ? ep.summary : "";
+    const maxLength = 200;
+    const shortSummary =
+      summaryText.length > maxLength
+        ? summaryText.slice(0, maxLength) + "..."
+        : summaryText;
+
     card.innerHTML = `
       <h2 class="episode-name">
         S${season}E${number} - ${ep.name}
       </h2>
       <img class="episode-image" src="${ep.image?.medium || ""}">
-      <p class="episode-summary">${ep.summary || ""}</p>
+      <p class="episode-summary">${shortSummary}</p>
+      ${
+        summaryText.length > maxLength
+          ? '<button class="read-more-btn">Read more</button>'
+          : ""
+      }
+      <p>
+        <a class="episode-link" href="${ep.url}" target="_blank">
+          View on TVmaze
+        </a>
+      </p>
     `;
+
+    // Click on image opens episode link
+    card.querySelector(".episode-image").addEventListener("click", () => {
+      window.open(ep.url, "_blank");
+    });
+
+    // Read more / show less toggle
+    const btn = card.querySelector(".read-more-btn");
+    if (btn) {
+      let expanded = false;
+      btn.addEventListener("click", () => {
+        const summaryEl = card.querySelector(".episode-summary");
+        if (!expanded) {
+          summaryEl.innerHTML = summaryText;
+          btn.textContent = "Show less";
+          expanded = true;
+        } else {
+          summaryEl.innerHTML = shortSummary;
+          btn.textContent = "Read more";
+          expanded = false;
+        }
+      });
+    }
 
     episodesContainer.appendChild(card);
   });
