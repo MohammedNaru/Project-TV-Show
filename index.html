@@ -4,33 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TV Show Project | Ali Naru (MohammedNaru)</title>
-    <link href="style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <h1>TV Show Episodes</h1>
+    <h1 id="pageTitle">TV Shows</h1>
 
-    <!-- NEW: Show selector -->
-    <label for="showSelect">Select TV show</label>
-    <select id="showSelect">
-      <option value="">Loading shows…</option>
-    </select>
+    <!-- Navigation -->
+    <button id="backToShows" style="display: none;">← Back to shows</button>
 
-    <!-- Existing controls -->
-    <input type="search" id="searchInput" placeholder="Search episodes..." />
+    <!-- Show search -->
+    <input
+      type="search"
+      id="showSearch"
+      placeholder="Search shows..."
+    />
 
-    <select id="episodeSelect">
-      <option value="">Jump to an episode...</option>
-    </select>
+    <!-- Shows listing -->
+    <div id="showsContainer" class="grid-container"></div>
 
-    <p id="episodeCount"></p>
-    <p id="statusMessage"></p>
+    <!-- Episodes controls -->
+    <div id="episodeControls" style="display: none;">
+      <input
+        type="search"
+        id="episodeSearch"
+        placeholder="Search episodes..."
+      />
 
-    <p>
-      Episode data originally from
-      <a href="https://www.tvmaze.com/">TVmaze</a>
-    </p>
+      <select id="episodeSelect">
+        <option value="">Jump to an episode...</option>
+      </select>
 
+      <p id="episodeCount"></p>
+    </div>
+
+    <!-- Episodes listing -->
     <div id="episodes" class="grid-container"></div>
 
     <script src="script.js"></script>
