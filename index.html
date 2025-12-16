@@ -3,32 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | ALI NARU</title>
+    <title>TV Show Project | Ali Naru (MohammedNaru)</title>
     <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <h1>All episodes</h1>
+    <h1>TV Show Episodes</h1>
 
-    <input
-      type="search"
-      id="searchInput"
-      placeholder="Search episodes..."
-    />
+    <!-- NEW: Show selector -->
+    <label for="showSelect">Select TV show</label>
+    <select id="showSelect">
+      <option value="">Loading shows…</option>
+    </select>
+
+    <!-- Existing controls -->
+    <input type="search" id="searchInput" placeholder="Search episodes..." />
 
     <select id="episodeSelect">
       <option value="">Jump to an episode...</option>
     </select>
 
     <p id="episodeCount"></p>
+    <p id="statusMessage"></p>
 
-    <!-- Status message -->
-    <p id="statusMessage">Loading episodes…</p>
+    <p>
+      Episode data originally from
+      <a href="https://www.tvmaze.com/">TVmaze</a>
+    </p>
 
     <div id="episodes" class="grid-container"></div>
 
-    <!-- IMPORTANT: episodes.js REMOVED -->
     <script src="script.js"></script>
   </body>
 </html>
