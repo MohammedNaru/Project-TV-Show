@@ -1,20 +1,17 @@
-// You can edit ALL of the code here
 function setup() {
   const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  renderEpisodes(allEpisodes);
 }
 
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.classList.add("grid-container"); // Apply grid layout
+function renderEpisodes(episodeList) {
+  const episodesContainer = document.getElementById("root");
+  episodesContainer.classList.add("grid-container");
 
-  // Loop through each episode
-  episodeList.forEach(episode => {
-    // Create HTML elements for episode details
+  episodeList.forEach((episode) => {
     const episodeDiv = document.createElement("div");
     episodeDiv.classList.add("episode-box");
 
-    const episodeCode = `S${episode.season.toString().padStart(2, '0')}E${episode.number.toString().padStart(2, '0')}`;
+    const episodeCode = formatEpisodeCode(episode.season, episode.number);
 
     episodeDiv.innerHTML = `
       <h2 class="episode-name">${episode.name} (${episodeCode})</h2>
@@ -24,11 +21,19 @@ function makePageForEpisodes(episodeList) {
       <p>Source: <a class="episode-link" href="${episode.url}" target="_blank">TVMaze.com</a></p>
     `;
 
-    rootElem.appendChild(episodeDiv);
+    episodesContainer.appendChild(episodeDiv);
   });
 
-  // Display total number of episodes
-  rootElem.insertAdjacentHTML("beforebegin", `<p>Got ${episodeList.length} episode(s)</p>`);
+  episodesContainer.insertAdjacentHTML(
+    "beforebegin",
+    `<p>Got ${episodeList.length} episode(s)</p>`
+  );
+}
+
+function formatEpisodeCode(season, number) {
+  return `S${season.toString().padStart(2, "0")}E${number
+    .toString()
+    .padStart(2, "0")}`;
 }
 
 window.onload = setup;
